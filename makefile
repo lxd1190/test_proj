@@ -1,4 +1,4 @@
 test:
 	pwd
-	ll
+	ls
 	./ci/run_tests.sh
