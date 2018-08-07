@@ -1,4 +1,4 @@
 test:
 	pwd
 	ls
-	./ci/run_tests.sh
+	sh `pwd`/ci/run_tests.sh
