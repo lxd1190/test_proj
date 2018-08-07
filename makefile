@@ -1,3 +1,3 @@
 test:
 	pwd
-	ci/run_tests.sh
+	./ci/run_tests.sh
