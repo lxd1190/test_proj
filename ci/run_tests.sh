@@ -3,3 +3,4 @@
 
 # echo path
 echo $DIR, `pwd`
+echo "hello world"
