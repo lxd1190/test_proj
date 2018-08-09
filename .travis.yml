@@ -5,6 +5,9 @@ python:
 
 install:
     - pip install django==1.11.13
-
+    - pip install pylint
+services:
+  - mysql
+  
 script:
     - make test
