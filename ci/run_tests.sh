@@ -6,3 +6,4 @@ echo $DIR, `pwd`
 echo "hello world"
 
 py.test -x -vv -s `pwd`/tests/
+echo "show databases"|mysql -h127.0.0.1 -uroot
