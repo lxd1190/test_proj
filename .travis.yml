@@ -1,14 +1,18 @@
-language: python,node_js
+language: python
  
 python:
     - "2.7"
 
+node_js: "8"
+
 install:
     - pip install django==1.11.13
     - pip install pylint
+    - npm install"
 services:
   - mysql
   
 script:
+    - npm test
     - commitlint-travis
     - make test
