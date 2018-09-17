@@ -14,7 +14,6 @@ services:
   
 script:
     - export PATH=./node_modules/.bin:$PATH
-    - find name "commitlint*"
     - npm test
     - commitlint-travis
     - make test
