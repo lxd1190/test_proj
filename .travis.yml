@@ -10,4 +10,5 @@ services:
   - mysql
   
 script:
+    - commitlint-travis
     - make test
