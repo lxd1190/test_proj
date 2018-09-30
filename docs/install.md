@@ -76,43 +76,26 @@ port = 3306
 
 # 3. <a id="chapter-3"></a>服务端环境安装
 
-## 3.1. pip 安装介绍
+服务端python程序需要依赖django、numpy、tsfresh、MySQL-python、scikit-learn、scikit-learn等包
+
+## 3.1. yum 安装依赖包
 
 ```
 yum install python-pip
 pip install --upgrade pip
-```
-
-## 3.2. tsfresh 安装介绍
-
-```
 yum install gcc libffi-devel python-devel openssl-devel
-
-pip install tsfresh --ignore-installed requests
-```
-
-## 3.3. scikit-learn 安装介绍
-
-在安装tsfresh时，会同时安装好scikit-learn，可用	`pip list` 命令查看，如果没有可手动安装
-
-```
-pip install scikit-learn
-```
-
-## 3.4. xgboost 安装介绍
-
-```
-pip install xgboost
-```
-
-## 3.5. MySQLdb 安装介绍
-
-```
 yum install mysql-devel
-pip install mysql-python
 ```
 
-## 3.6. 工作目录加入环境变量
+## 3.2. pip 安装python依赖包
+
+通过工程目录下requirements.txt安装
+
+```
+pip install -I -r requirements.txt
+```
+
+## 3.3. 工作目录加入环境变量
 
 ```
 export PYTHONPATH=/data/Metis:$PYTHONPATH
@@ -120,15 +103,11 @@ export PYTHONPATH=/data/Metis:$PYTHONPATH
 
 为了保证下次登陆可以导入环境变量,请将环境变量配置写入/etc/profile文件
 
-## 3.7. 安装Django
-
-```
-pip install django==1.10.3 
-```
+## 3.4. 部署Django服务端
 
 部署生产环境时可通过nginx和uwsgi部署，具体请参考对应官网说明
 
-## 3.8. 启动服务端
+## 3.5. 启动服务端
 
 启动服务端程序
 
@@ -167,6 +146,7 @@ service docker start
 
 ## 5.2. 部署docker环境
 执行Meits/docker/start.sh ${本机ip},等待部署完成
+
 部署完成后,可以通过浏览器直接访问:http://${IP}
 
 
