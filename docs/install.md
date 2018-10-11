@@ -119,15 +119,49 @@ python /data/Metis/app/controller/manage.py runserver {ip}:{port}
 
 ## 4.1. Node.js安装
 
-需先安装Node.js，并且Node.js的版本需不低于 8.11.1
+需先安装[Node.js](https://nodejs.org/en/download/)，并且Node.js的版本需不低于 8.11.1
 
 ## 4.2. npm install安装前端依赖
 
 安装 pacakge.json 配置文件中依赖的第三方安装包
 
+## 4.3. 编译代码
+
+修改uweb/src/app.json 文件的后端地址配置:"origin": "http://${ip}:${port}" 。ip和port对应服务端地址
+
+运行npm run build
+
+将uweb目录下的custom文件夹下复制到uweb目录下生成的dist文件夹中
+
+将nginx配置文件中的root定位到uweb目录下的dist文件夹
+
+nginx配置如下：
+
+server {
+        listen       80;
+        root /*/uweb/dist;
+
+        location / {
+                add_header Cache-Control max-age=0;
+                gzip on;
+                gzip_min_length 1k;
+                gzip_buffers 16 64k;
+                gzip_http_version 1.1;
+                gzip_comp_level 6;
+                gzip_types text/plain application/x-javascript text/css application/xml;
+                gzip_vary on;
+                    try_files $uri $uri/ /index.html;
+        }
+
+        location /index.html {
+                add_header Cache-Control 'no-store';
+        }
+    }
+
+
 ## 4.3. 启动WEB服务
 
-npm start启动WEB服务，正常启动后，打开浏览器并访问 http://localhost:8080/
+nginx正常启动后，打开浏览器并访问 http://${ip}:80/
 
 ## 4.3. 本地修改调试
 
