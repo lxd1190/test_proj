@@ -137,10 +137,10 @@ python /data/Metis/app/controller/manage.py runserver {ip}:{port}
 
 nginx配置如下：
 
+```
 server {
         listen       80;
         root /*/uweb/dist;
-
         location / {
                 add_header Cache-Control max-age=0;
                 gzip on;
@@ -157,7 +157,7 @@ server {
                 add_header Cache-Control 'no-store';
         }
     }
-
+```
 
 ## 4.4. 启动WEB服务
 
