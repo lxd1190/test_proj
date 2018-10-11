@@ -1,17 +1,20 @@
 ## 安装文档
 
 # 目录
-> * [依赖环境](#chapter-1)
-> * [数据库环境安装](#chapter-2)
-> * [服务端环境安装](#chapter-3)
-> * [WEB管理端环境安装](#chapter-4)
+> * [手工安装说明](#chapter-1)
+>> * [依赖环境](#chapter-1-1)
+>> * [数据库环境安装](#chapter-1-2)
+>> * [服务端环境安装](#chapter-1-3)
+>> * [WEB管理端环境安装](#chapter-1-4)
+>
 > * [docke部署](#chapter-5)
 > 
 本安装文档仅描述了在一台服务器上安装搭建整个Metis的过程，目的是为了让用户对Metis的部署搭建、运行等整体认识。
 
 如要用于生产环境，需要更多考虑分布式系统下容错、容灾能力。若有需要，可以加入Metis的qq技术交流群：288723616。
 
-# 1. <a id="chapter-1"></a>依赖环境
+#1. <a id="chapter-1"></a>手工安装
+## 1.1. <a id="chapter-1-1"></a>依赖环境
 
 | 软件  | 软件要求 |
 | ---  | ---  |
@@ -25,9 +28,9 @@
 
 以下步骤假定安装机器的代码目录是 `/data/Metis/`，可根据实际情况更改。
 
-# 2. <a id="chapter-2"></a>数据库环境安装
+## 1.2. <a id="chapter-1-2"></a>数据库环境安装
 
-## 2.1. mysql 安装介绍
+### 1.2.1. mysql 安装介绍
 
 采用yum源安装或者在mysql官网下载源码安装，安装好后检测mysql服务是否正常工作。
 
@@ -36,7 +39,7 @@ yum install mariadb-server
 systemctl start mariadb
 ```
 
-## 2.2. 初始化数据库
+### 1.2.2. 初始化数据库
 
 为了方便用户快速使用，提供了50+异常检测结果数据和300+样本数据供大家使用。
 
@@ -74,11 +77,11 @@ host = '127.0.0.1'
 port = 3306
 ```
 
-# 3. <a id="chapter-3"></a>服务端环境安装
+## 1.3. <a id="chapter-1-3"></a>服务端环境安装
 
 服务端python程序需要依赖django、numpy、tsfresh、MySQL-python、scikit-learn、scikit-learn等包
 
-## 3.1. yum 安装依赖包
+### 1.3.1. yum 安装依赖包
 
 ```
 yum install python-pip
@@ -87,7 +90,7 @@ yum install gcc libffi-devel python-devel openssl-devel
 yum install mysql-devel
 ```
 
-## 3.2. pip 安装python依赖包
+### 1.3.2. pip 安装python依赖包
 
 通过工程目录下requirements.txt安装
 
@@ -95,7 +98,7 @@ yum install mysql-devel
 pip install -I -r requirements.txt
 ```
 
-## 3.3. 工作目录加入环境变量
+### 1.3.3. 工作目录加入环境变量
 
 ```
 export PYTHONPATH=/data/Metis:$PYTHONPATH
@@ -103,11 +106,11 @@ export PYTHONPATH=/data/Metis:$PYTHONPATH
 
 为了保证下次登陆可以导入环境变量,请将环境变量配置写入/etc/profile文件
 
-## 3.4. 部署Django服务端
+### 1.3.4. 部署Django服务端
 
 部署生产环境时可通过nginx和uwsgi部署，具体请参考对应官网说明
 
-## 3.5. 启动服务端
+### 1.3.5. 启动服务端
 
 启动服务端程序
 
@@ -115,19 +118,19 @@ export PYTHONPATH=/data/Metis:$PYTHONPATH
 python /data/Metis/app/controller/manage.py runserver {ip}:{port}
 ```
 
-# 4. <a id="chapter-4"></a>WEB管理端环境安装
+## 1.4. <a id="chapter-1-4"></a>WEB管理端环境安装
 
-## 4.1. Node.js安装
+### 1.4.1. Node.js安装
 
 需先安装[Node.js](https://nodejs.org/en/download/)，并且Node.js的版本需不低于 8.11.1
 
-## 4.2. npm install安装前端依赖
+### 1.4.2. npm install安装前端依赖
 
 安装 pacakge.json 配置文件中依赖的第三方安装包
 
-## 4.3. 编译代码
+### 1.4.3. 编译代码
 
-修改uweb/src/app.json 文件的后端地址配置:"origin": "http://${ip}:${port}" 。ip和port对应服务端地址
+修改uweb/src/app.json 文件的后端地址配置: "origin": "http://${ip}:${port}" , ip和port对应服务端地址
 
 运行npm run build
 
@@ -159,11 +162,11 @@ server {
     }
 ```
 
-## 4.4. 启动WEB服务
+### 1.4.4. 启动WEB服务
 
 nginx正常启动后，打开浏览器并访问 http://${ip}:80/
 
-## 4.5. 本地修改调试
+### 1.4.5. 本地修改调试
 
 如本地修改代码，发布更新方式如下：
 
