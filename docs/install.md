@@ -181,7 +181,7 @@ yum install docker
 service docker start
 ```
 
-## 2.2. 部署docker环境
+## 2.2. <a id="chapter-2"></a> 部署docker环境
 执行Meits/docker/start.sh ${本机ip},等待部署完成
 
 部署完成后,可以通过浏览器直接访问:http://${IP}
