@@ -7,13 +7,13 @@
 >> * [服务端环境安装](#chapter-1-3)
 >> * [WEB管理端环境安装](#chapter-1-4)
 >
-> * [docke部署](#chapter-5)
+> * [docke部署](#chapter-2)
 > 
 本安装文档仅描述了在一台服务器上安装搭建整个Metis的过程，目的是为了让用户对Metis的部署搭建、运行等整体认识。
 
 如要用于生产环境，需要更多考虑分布式系统下容错、容灾能力。若有需要，可以加入Metis的qq技术交流群：288723616。
 
-#1. <a id="chapter-1"></a>手工安装
+# 1. <a id="chapter-1"></a>手工安装
 ## 1.1. <a id="chapter-1-1"></a>依赖环境
 
 | 软件  | 软件要求 |
@@ -172,16 +172,16 @@ nginx正常启动后，打开浏览器并访问 http://${ip}:80/
 
 npm run build 项目代码开发完成后，执行该命令打包项目代码。在项目根目录会生成一个 dist 目录，然后复制custom目录，放至dist目录下。发布时，将 dist 目录中的全部文件作为静态文件，放至服务器指定的静态文件目录即可
 
-# 5. <a id="chapter-5"></a>docker方式部署
+# 2. <a id="chapter-5"></a>docker方式部署
 
-## 5.1. 安装docker
+## 2.1. 安装docker
 
 ```
 yum install docker
 service docker start
 ```
 
-## 5.2. 部署docker环境
+## 2.2. 部署docker环境
 执行Meits/docker/start.sh ${本机ip},等待部署完成
 
 部署完成后,可以通过浏览器直接访问:http://${IP}
