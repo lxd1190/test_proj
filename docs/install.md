@@ -92,7 +92,7 @@ yum install mysql-devel
 
 ### 1.3.2. pip 安装python依赖包
 
-通过工程目录下requirements.txt安装
+通过工程目录下docs/requirements.txt安装
 
 ```
 pip install -I -r requirements.txt
@@ -126,7 +126,9 @@ python /data/Metis/app/controller/manage.py runserver {ip}:{port}
 
 ### 1.4.2. npm install安装前端依赖
 
-安装 pacakge.json 配置文件中依赖的第三方安装包
+安装 uweb/pacakge.json 配置文件中依赖的第三方安装包
+
+进入要uweb目录，执行npm install
 
 ### 1.4.3. 编译代码
 
