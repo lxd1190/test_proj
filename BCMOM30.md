@@ -1,54 +1,29 @@
-# 云监控Barad（BCM）运维手册
+# 云拨测Cat运维手册
 ## 1 产品介绍
 云拨测（Cloud Automated Testing）是依托腾讯专有的服务质量监测网络，利用分布于全球的服务质量监测点，对您的网站、域名、后台接口等进行周期性监控，您可通过查看可用率和延时随时间区间变化来帮助分析站点质量情况。云拨测对可用率指标提供自定义阈值告警功能，您可以通过配置告警实现异常实时通知。可视化性能数据和告警通知可帮助您及时对业务质量作出反应，保证业务稳定正常运行。
 ## 2 产品架构
 ![](/docfile/BCM/OM001.png)
-## 3 监控组件巡检
+## 3 拨测组件巡检
 #### 3.1 zookeeper巡检
 
 1. 登录所有zk节点，找到zookeeper安装目录（默认/usr/local/services/zookeeper），进入bin目录，运行./zkServer.sh status 。所有节点无错误输出，除了follower外，有1个leader，则zk集群是运行正常的。
 
 2. 进入bin目录下，运行./zkCli.sh，运行 ls / ，返回的目录中必须有 /storm110，/kafka ， /kfkSpout 。缺失则标明对应的组件存在异常（以上目录对应的组件依次为 storm，kafka，storm）。 
 
-#### 3.2 elasticsearch巡检
-1. 先确定es的ip及端口。
-
-2. 然后curl http://ip:port/_cluster/health ，返回"status"，返回值说明如下：<br>
-   "green"，则集群是正常状态。<br>
-   yellow状态为可用，但有风险。<br>
-   red状态为集群不可用或者分片的数据丢失了。
-
-**以下是es的几个关键指令：**
-
-- GET _cluster/health     -- 查询集群状态。
-- GET _cat/nodes?v    -- 查询节点状态。
-- GET _cat/allocation?v     -- 查询节点磁盘占用。
-- GET _cat/recovery?active_only&v      -- 查询集群目前恢复分片、平衡分片的情况。
-- GET _cluster/settings    -- 查询集群现有配置。
-- GET _nodes/hot_threads   -- 查询节点哪些线程占用cpu较高。
-- GET _cat/thread_pool?v   -- 查看线程队列情况，能看出来是哪个节点引起集群慢。
-
-**通过es的oss查看集群信息：**
-
-curl es1.barad:5100/search/clusters  -- 可以查看某个集群已分配的资源和磁盘使用量
-
-#### 3.3 kafka巡检
+#### 3.2 kafka巡检
 1. 登录一台zk机器，找到zookeeper安装目录（默认/usr/local/services/zookeeper）。
 
 2. 进入bin目录下，运行zkCli.sh，运行 ls /kafka/brokers/ids。<br>
 如果返回 [1, 2, 3] 则表示有3台kafka节点在运行中，如果缺少，有可能节点有异常，但不一定影响服务，但仍需尽快修复。
 
-#### 3.4 storm巡检
+#### 3.3 storm巡检
 1. 进入到nimbus节点机器。
 
 2. cd /usr/local/services/storm/bin/到此目录下运行./storm list。<br>如果出现下面这些Topology status为ACTIVE,则表明正常。
 
     **Topology_name        Status     Num_tasks  Num_workers  Uptime_secs**<br>
 UpdateConf           ACTIVE     4          1            365484    
-Barad_Comm           ACTIVE     56         2            365513    
-Barad_Host           ACTIVE     56         2            365496    
-BaradUpdateConf      ACTIVE     5          1            365530    
-SelfMonitor          ACTIVE     4          1            365490    
+NWS_CAT1           ACTIVE     338         32            365513    
 
 
 #### 3.5 nws巡检
