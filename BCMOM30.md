@@ -26,16 +26,6 @@ UpdateConf           ACTIVE     4          1            365484
 NWS_CAT1           ACTIVE     338         32            365513    
 
 
-#### 3.5 nws巡检
-
-1. 连接管控barad的DB节点（默认mysql -hbarad.mysql -umysql_user -pmysql_passwd），进入数据库（use BaradNwsStat;）。
-
-2. 查询最近的nws上报统计信息（select * from dNwsDataStat order by logTime desc limit 25;），检查code字段是否存在非0记录，如果有则说明nws存在异常，可尝试重启nws容器。
-
-#### 3.6 其他模块巡检
-其他模块均可依赖gaia的健康检查进行巡检。
-
-
 ## 4 故障处理思路
 ### 数据链路
 ![](/docfile/BCM/OM002.png)
