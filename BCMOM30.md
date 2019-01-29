@@ -37,19 +37,10 @@ NWS_CAT1           ACTIVE     338         32            365513
 3. 全链路分析。
 
 ## 5 故障处理CASE
-### 5.1 所有产品都无监控数据
+### 5.1 CDB中无监控数据上报
 #### 故障现象
-租户端或运营端控制台所有产品都看不到监控数据。
+API拉不到监控数据或在CDB中无法看到上报数据
 #### 故障定位及处理
-1. 检查ES集群是否正常部署：
-    1. 在pod内curl es1.barad:9200/_cat/health?v，如果集群状态为green则正常：<br>
-    ![](/docfile/BCM/OM004.png)<br>
-    1. 查看存储表是否正常初始化：curl es1.barad:9200/_metrics，正常应返会viewName index的集合，若报无权限或无该index，则创建集群的初始化参数有问题，开启了鉴权，或集群类型创建的不是ctsdb，需将集群销毁重新创建，具体可参考ctsdb oss部署文档。
-    1. 查看建表的时间戳格式是否正常：curl es1.barad:9200/_metric/cvm_device-60,若返回的format为epoch_second则为正常，若为epoch_mills则为异常。如异常需要将该表删掉重建（如管控刚刚拉起，存量数据无需保留的话，可将所以metric删掉后重新执行初始化脚本）。<br> 
-    ![](/docfile/BCM/OM005.png)<br>
-    1. 如以上都正常，且集群本身运营有一段时间后突然没数据，可查看es存储是否被写满,curl es1.barad:9200/_cat/allocation?v的disk.indices可查看当前已使用的node空间，curl es1.barad:5100/_search/clusters 可以看到对应集群预先分配的node磁盘空间。如已达到分配容量，则需要对ES进行扩容：<br>
-    ![](/docfile/BCM/OM006.png)<br>
-    ![](/docfile/BCM/OM007.png)<br>
 1. 检查zk和kafka是否正常：
     1. 登录zk节点，进入zk安装目录，进入bin目录，执行./zkServer.sh status命令，正常则返回leader或follower。若报错则可能zk未启动，执行ps -ef|grep zookeeper查看zk是否正常拉起。
     1. 若zk正常，则在zk的bin目录下执行./zkCli.sh进入zk的shell（最好在leader节点执行,follower也可以，如果执行命令未响应，可重试几次），然后执行ls /kafka/brokers/ids，正常则会返回所有的kafka节点id，一般为[0,1,2]或[1,2,3]三个节点，若少于3个则可能有部分kafka节点异常，get /kafka/brokers/ids/1可查看具体的kafka node信息,endpoints和host为具体的节点信息,此处的ip需要能被集群内pod访问到。<br>
@@ -59,7 +50,6 @@ NWS_CAT1           ACTIVE     338         32            365513
     ![](/docfile/BCM/OM009.png)<br>
     ![](/docfile/BCM/OM010.png)<br>
     ![](/docfile/BCM/OM011.png)<br>
-    1. 若kafka异常后恢复，则需要重启barad-nws和barad-event进程，将barad-nws和barad-event pod删掉重新拉起即可。
 1. 查看storm任务是否提交，topo是否正常：
     1. 打开stormui界面，查看有无报错：<br>
     ![](/docfile/BCM/OM012.png)<br>
