@@ -53,7 +53,7 @@ API拉不到监控数据或在CDB中无法看到上报数据
 1. 查看storm任务是否提交，topo是否正常：
     1. 打开stormui界面，查看有无报错：<br>
     ![](/docfile/BCM/OM012.png)<br>
-    1. 若无报错，则点进去Barad_Comm topology：<br>
+    1. 若无报错，则点进去NWS_CAT1 topology：<br>
     ![](/docfile/BCM/OM013.png)<br>
     确认该页面无异常信息，且KafkaSpout和ElasticBolt的Emitted为一个较大的数值，若数值为0或小于1000，则很可能是storm的worker异常，需检查下对应worker的日志。
     1. 若报错nimbus找不到leader，则可能： 
