@@ -55,15 +55,15 @@ API拉不到监控数据或在CDB中无法看到上报数据
     ![](/docfile/BCM/OM012.png)<br>
     1. 若无报错，则点进去NWS_CAT1 topology：<br>
     ![](/docfile/BCM/OM013.png)<br>
-    确认该页面无异常信息，且KafkaSpout和ElasticBolt的Emitted为一个较大的数值，若数值为0或小于1000，则很可能是storm的worker异常，需检查下对应worker的日志。
+    确认该页面无异常信息，且KafkaSpout的Emitted为一个较大的数值，若数值为0或小于1000，则很可能是storm的worker异常，需检查下对应worker的日志。
     1. 若报错nimbus找不到leader，则可能： 
         1. pod间域名不通，需进入一个nimubs容器ping另一个nimbus pod的域名，如域名不通，则可能kube-dns有问题，需检查kube-dns是否正常。
         1. node故障导致nimbus的pod同时重启并调度到其他node，导致nimbus在本地找不到元数据信息，认为自己不是leader，发生该情况只能清空zk上的nimbus信息(可重新执行barad的zk初始化脚本)，然后重启nimbus pod。
-    1. 若页面上找不到Barad_Comm或BaradUpdateConf，则代表相应的topo未启动，需要在nimbus pod内重新提交topo任务：进入nimbus pod，执行sh /data/config/topo_init.sh，观察结果如果提交success为1，则正常启动，如果failed为1，则启动失败。启动失败的原因一般有以下几种： 
+    1. 若页面上找不到NWS_CAT1或UpdateConf，则代表相应的topo未启动，需要在nimbus pod内重新提交topo任务：进入nimbus pod，执行sh /data/config/topo_init.sh，观察结果如果提交success为1，则正常启动，如果failed为1，则启动失败。启动失败的原因一般有以下几种： 
         1. storm-api没有正常拉起，可在nimbus pod内ps -ef|grep storm-api，查看进程是否存在，如进程不存在，则需要进入/usr/local/services/storm-api目录，执行/bin/start.sh拉起进程（弹性交付已加上监控脚本，理论上会自动拉起）。
         1. nimbus服务不正常。需在stormui上或nimubs的日志目录/data/storm110/logs确认nimbus是否正常。
         1. nimbus连接不上zk（具体原因见第6步）。
-    1. 若页面上有Barad_Comm和BaradUpdateConf topology，但是点进去之后emitted为0或者值很小，则可能worker为正常工作，或者worker节点之间通信异常。需挑选一个页面下方Worker Resources里的worker pod，进入查看日志。如Barad_Comm里的业务相关日志位于/data/storm110/logs/Barad_Comm目录，worker进程本身的日志位于/data/storm110/logs/workers-artifacts目录。
+    1. 若页面上有NWS_CAT1和UpdateConf topology，但是点进去之后emitted为0或者值很小，则可能worker为正常工作，或者worker节点之间通信异常。需挑选一个页面下方Worker Resources里的worker pod，进入查看日志。
     1. 若日志里出现连不上zk的报错，则可能是zk超时导致连接数过多，从而被zk节点拒绝连接（zk默认单个node服务同一来源的ip连接数上限是500）。可在storm-woker内执行netstat -natp|grep 2181|wc -l查看zk连接数，正常情况下应该在100以下，若连接数超过500，则可能有异常。 
         1. 解决办法：执行netstat -natp|grep 2181|awk '{print $7}'|sort|uniq -c|sort -k1 -rn|head -10可以查看连接数过多的进程pid。执行ps -ef|grep $PID，可以在最后一行看到具体的topology名字。 <br>
         ![](/docfile/BCM/OM014.png)<br>
