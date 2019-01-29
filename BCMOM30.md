@@ -69,152 +69,16 @@ API拉不到监控数据或在CDB中无法看到上报数据
         ![](/docfile/BCM/OM014.png)<br>
         若真的是zk连接数过多，则需要先kill掉对应的topology，在worker内执行kill -9 $PID或者直接删掉storm-worker的pod，然后重新拉起来。连接数降下来之后，需要进入storm-nimbus pod，然后执行sh /data/config/topo_init.sh重新拉起topo。
         1. 规避措施:发生连接数过多一般是因为storm的zk超时时间设置的过短，公有云默认是9s超时，TCE环境将超时时间增大到了50s，但是storm_restore旁路可能有部分客户未升级，导致出现超时。需check下客户的storm镜像版本是否为最新版本，如果是老版本，建议升级镜像。
-#### 故障清除
-监控控制台数据恢复正常。
 #### 运维经验
 1. 部署时严格按照部署文档操作。
-2. 加强对ZK，ES，Kafka等支撑组件的监控。
+2. 加强对ZK，Kafka等支撑组件的监控。
 3. 加强对集群负载的监控。
-
-### 5.2 部分产品有数据，部分产品无数据
-#### 故障现象
-部分产品在控制台可以看到监控数据，部分产品看不到。
-#### 故障定位
-1. 确认上报方是否上报。
-1. 如确实上报，检查上报的时间戳是否当前时间戳，默认超过半小时的时间戳会被丢弃。
-1. 如有翻译，则检查翻译配置是否正常，翻译字典表数据是否ok：
-	1. 查看barad的数据库，StormDictionary库下对应的表里有没有相应的记录。
-	2. 若翻译记录未存在，则：
-		1. 如果是cvm和LB，则查看barad-script容器内的barad_sync_server是否正常（ps -ef|grep sync_tool）服务是否正常，配置里的CCDB地址是否正确。
-		2. 如果是非cvm产品，则先确认业务方是否上报翻译数据，如果有上报，则查看barad-script容器里的dict_access和dict_sync_tool是否正常（ps -ef|grep tornado_cgi.py, ps -ef|grep translate_tool.py）,如不正常，则查看对应组件的日志(位于/data/log下)。
-1. 确认ES建表的时间戳格式是否正常（见上一小节《所有产品都无监控数据》）。
-1. 检查统计方式是否配置正确（一般只有新业务接入才会有错）。
-1. 排查nws和storm日志（nws日志位于/usr/local/services/barad-nws-1.0/log，storm日志位于/data/storm110/logs）。
-#### 故障处理
-1. 如上报方未上报，则通知上报方处理。
-1. 若翻译组件由于配置错误导致服务异常，则更新配置后重启barad-script容器。
-1. 若ES建表错误，则将表删除后重建。
-1. 如统计方式有误则更正统计方式。
-1. 若有其他错误则根据日志信息进行定位。
-#### 故障清除
-控制台可以看到监控数据恢复正常。
-#### 运维经验
-1. 集群的初始化操作一定要做。
-1. 配置的管理切记不要搞错。
-
-### 5.3 CVM无监控数据
-#### 故障现象
-其他产品有监控数据，只有CVM看不到监控数据。
-#### 故障定位
-1. 在子机上确认agent是否安装，agent位于/usr/local/qcloud/monitor目录下。
-1. 若agent已安装，确认agent配置的域名是否正确，域名是否能够正常解析，agent配置位于/usr/local/qcloud/monitor/barad/etc/plugin.ini。
-1. 若agent未安装，则检查子机stargate是否正常运行(ps -ef|grep sgagent)，日志是否有报错(/usr/local/qcloud/stargate/logs)。
-1. 观察子机agent日志有无报错(/usr/local/qcloud/monitor/barad/log)
-#### 故障处理
-1. 若agent未安装，则安装agent。
-1. 若域名不能解析，则需要加上barad相应域名的解析。
-#### 故障清除
-在控制台上可以看到CVM的监控数据。
-
-### 5.4 监控数据断点或部分机器无数据
-#### 故障现象
-监控控制台数据有断点。
-#### 故障定位
-1. 此类情况一般是storm-worker重启导致部分worker通信有问题导致，具体可查看对应topology的worker日志，如确实为通信问题，在storm-nimbus pod内执行sh /data/config/topo_init.sh重启即可解决。
-1. 如果客户业务量较大，上报量较大，则可能导致集群负载过高，从而掉点，具体可参考**《Storm扩容》**小节进行检查和扩容。
-1. 如storm-worker正常，则需要检查kafka和ES是否正常。某个kafka节点挂掉或者ES集群状态为非green，或ES集群存储被写满也可能导致数据掉点。
-#### 故障处理
-1. 如果storm负载过高，则进行扩容worker或者扩容pod。
-1. 如果ES集群存储被写满，则进行ES扩容。
-#### 故障清除
-监控控制台曲线连续，不再出现断点。
-#### 运维经验
-加强对支撑组件的监控。
-
-### 5.5 所有业务无告警
-#### 故障现象
-对某些业务配置了告警，而且满足了告警触发的条件，但是控制台的告警列表没有告警信息。
-#### 故障定位及处理
-1. 查看是否有监控数据，若无监控数据，则先按照《无监控数据排查》进行定位。
-1. 若有监控数据但无告警，则可能是告警规则未成功加载，查看StormUI，BaradUpdateConf的topology是否正常启动：
-	1. 如未启动，则在storm-nimbus pod内执行sh /data/config/topo_init.sh进行拉起。
-	1. 如已启动，则可查看zk上告警的节点配置是否更新，或直接查看storm-worker里BaradUpdateConf的日志是否有报错，如有异常，则进入storm-nimbus尝试重启BaradUpdateConf。
-1. 查看AMS日志是否正常(barad-api容器，/data/www/ams/log目录，ams.baradAlarm.log.*)，如有对应的发送日志，则表明告警是触发成功的，需根据AMS的错误日志继续排查。
-1. 如果上述都正常，则需要进入storm-worker对应topology的日志目录，一般为/data/storm110/logs/Barad_Comm，然后grep对应告警对象的uniqueId进行排查（uniqueId可在barad的db的StormCloudConf.rApplicationPolicy表里根据groupId进行查询）。
-#### 故障清除
-控制台告警列表可以看到告警触发的信息，并且能收到告警的短信和邮件。
-
-### 5.6 部分业务无告警
-#### 故障现象
-有部分产品可以收到告警，部分产品收不到告警。
-#### 故障定位及处理
-1. 查看是否有监控数据。
-1. 查看当前的数据是否满足告警条件和持续时间（有时候可能会出现设置了>0但是实际曲线为0的情况，这种不满足告警条件的不会告警），持续N个周期需要连续N+1个异常点才会告警（例如设置了持续一个周期，则需要有连续的两个满足条件的异常点才会告警）。
-1. 查看AMS是否有发送日志(barad-api容器，/data/www/ams/log目录，ams.baradAlarm.log.*)，如果有发送日志，但是有报错，大概率是回调接口请求业务接口报错，需根据具体报错信息排查。
-1. 如果AMS无发送日志，则需排查barad-alarm pod内的barad-alarm日志(/usr/local/services/cloud_alarm_v2-1.0/log/cloud_alarm.log)，如日志中没有收到异常点的请求，则是由于Storm未发送异常点导致。可参考《所有业务无告警》进行排查。
-#### 故障清除
-控制台告警列表可以看到收不到告警的产品告警触发的信息，并且能收到告警的短信和邮件。
-
-### 5.7 存量有告警，新增告警策略无告警
-#### 故障现象
-存量的告警策略可以收到告警，新增的告警策略收不到告警。
-#### 故障定位及处理
-大概率为storm的BaradUpdateConf未更新配置到zookeeper。参考《所有业务无告警》进行排查。
-#### 故障清除
-新增的告警策略能够收到告警。
-
-### 5.8 cvm有数据无告警
-#### 故障现象
-CVM在控制台上有数据，但是收不到告警。
-#### 故障定位及处理
-1. 大概率为字典表未正确加载，在isd.barad上，qce/cvm的cvm_device视图下，查看对应uuid的appId是否为改用户的appId，如果appId不是租户的appId，则表明字典表未正常加载：
-	1. 查看barad的db，StormDictionary.tDictionary_1表里是否有对应uuid的记录，如果有，则可能是dict_loader未正常加载，需重启barad-nws pod。
-	2. 如果db里无对应翻译记录，则可能是barad_sync_server配置的ccdb地址错误，需进入barad-script容器对应服务查看日志(/usr/local/services/barad_sync_server-1.0)和配置文件。
-1. 若字典表配置正常，则参考《所有业务无告警》进行排查。
-#### 故障清除
-对于满足告警条件的CVM，控制台上可以看到CVM的告警信息。
-
-### 5.9 无事件信息
-#### 故障现象
-某个产品发生了某个事件，但是在事件中心的控制台看不到对应的事件信息。
-#### 故障定位及处理
-1. 检查业务方是否上报。
-2. 检查kafka是否正常：
-	1. 查看barad-event容器内的nws_event_front日志（/usr/local/services/nws_event_front-1.0/log）,是否有写kafka失败的日志。如果有超时或发送失败，则可能kafka配置不正确或者未初始化`cm_event` topic，需排查kafka配置和kafka的topic列表，可参考kafka部署文档。
-	2. 如果写kafka正常（上报成功，且nws_event_front无错误日志），但是event_handle模块的日志没有消费kafka的日志，则可能kafka该topic异常。可尝试换一个topic进行测试，即在kafka上新建一个topic，然后更新nws_event_front和event_handle的配置文件，替换topic为新的topicName，然后重启这两个服务。
-3. 检查ES建表是否正常:`curl es1.barad:9200/_metric/tce_bm_lost_agent`,返回的timestamp的format字段应为epoch_second，如果返回报错或者返回的字段为epoch_mills，则表明未建表或建表异常，需删掉改表并重新建表。
-#### 故障清除
-在事件中心控制台可以看到新增的事件信息。
-
-### 5.10 有事件无告警
-#### 故障现象
-事件中心可以看到事件发生，但是告警列表看不到，并且订阅了告警的人员收不到告警信息。
-#### 故障定位及处理
-1. 即事件中心有记录但告警列表无记录。
-1. 查看该事件和对象是否绑定了告警策略，如未配置，则事件中心的记录里会展示**未配置**，该情况为正常情况，如需要告警，则需要在告警策略页面为改事件绑定告警对象。
-1. 若事件绑定了告警，但是无告警记录，则需要查看AMS日志进行排查。
-#### 故障清除
-对于已绑定告警的时间，在控制台告警列表可以看到已发生事件的告警记录，已订阅告警的人员能够收到告警。
-
-### 5.11 有告警无短信和邮件
-#### 故障现象
-告警列表可以看到告警记录，但是订阅了告警的人员收不到短信和邮件。
-#### 故障定位及处理
-1. 大概率为消息中心问题。
-2. 查看AMS日志(barad-api容器，/data/www/ams/log目录)，查看MessageGroupClass.log.*文件，是否有发送消息中心失败的日志。
-3. 若告警记录正常，但无发送日志，则：
-	1. 查看该告警策略是否绑定告警接收组，且接收组里的接收人已认证。
-	2. 如果是运营端，则查看接收组的ID是否大于10000000，理论上运营端接收组ID都应该大于10000000，如果小于10000000，则联系消息中心同事查看是否消息中心db初始化有问题。
-#### 故障清除
-对于新发生的事件，已经订阅改告警的人员可以收到短信和邮件提醒。
-
 
 ## 6 扩容
 ### 6.1 Storm扩容
 #### 扩容依据
 1. 通过storm ui上的每个component的capacity指标来判断是否存在计算资源不足的情况。Capacity越大说明该component计算资源需要库容，目前参考值为0.6，即Capacity>0.6，表示需要扩容(忽略AlarmBackupBolt)。 <br>
   ![](/docfile/BCM/OM015.png)<br>
-1. 在barad的db里查询每分钟的上报量，单个worker的最大处理能力为50w/min，如果当前worker数不能满足，则考虑扩容worker数。8c32g的pod建议的worker数为6个，单个pod的worker数超过6个即考虑扩容pod。```select logTime, sum(nCount) from BaradNwsStat.dNwsDataStat where topoName='Barad_Comm' and logTime > date_sub(now(), interval 10 minute ) group by logTime;```
 
 #### 扩容操作
 1. Storm topology的资源配置是在配置中心中的storm模块设置的，因此可以调整这些配置项，然后重启相应的topology即可，注意：这里修改topology资源配置后，重启该topology才能生效。<br>
