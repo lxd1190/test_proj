@@ -27,28 +27,6 @@
 | TotalCount    | UInt    | 用户的拨测任务总条数 |
 | Tasks | CatTask数组 | 满足条件的拨测任务列表                |
 
-### 3.1 data 的结构
-
-| 参数名称  | 类型    | 描述          |
-| ----- | ----- | ----------- |
-| total | Int   | 当前用户总的拨测任务数 |
-| tasks | Array | 本批拨测任务列表    |
-
-#### 3.1.1 拨测任务  的结构  
-
-| 参数名称               | 类型     | 描述                               |
-| ------------------ | ------ | -------------------------------- |
-| taskId             | Int    | 任务id                             |
-| taskName           | String | 任务名称                             |
-| period             | Int    | 任务周期                             |
-| catTypeName        | String | 拨测类型                             |
-| status             | Int    | 任务状态  1 暂停, 2 激活                 |
-| cgiUrl             | String | 拨测地址                             |
-| addTime            | String | 任务创建的时间  格式如：2017-05-16 10:00:00 |
-| availRatioThres    | Int    | 告警的可用率门限                         |
-| availRatioInterval | Int    | 告警的可用率持续时间                       |
-| receiverGroupId    | Int    | 告警接收组                            |
-
 ##### 
 
 

@@ -1,13 +1,8 @@
 ## 1. 接口描述
 
-域名：catapi.api.qcloud.com
+域名：
 接口：DescribeCatTask
 
-
-
-查询拨测任务详情，输入参数举例：
-
-taskId.0=24418&taskId.1=24420
 
 ## 2. 输入参数
 
@@ -15,101 +10,68 @@ taskId.0=24418&taskId.1=24420
 
 ### 2.1输入参数
 
-| 参数名称     | 必选   | 类型   | 输入内容   | 描述   |
-| -------- | ---- | ---- | ------ | ---- |
-| taskId.0 | 是    | Int  | 拨测任务id | 正整数。 |
-| taskId.1 | 否    | Int  | 拨测任务id | 正整数。 |
+| 参数名称     | 必选   | 类型    | 描述   |
+| -------- | ---- | ---- |  ---- |
+| TaskIds | 是    | UInt64  | 拨测任务id 数组 |
 #### 
 
 ## 3. 输出参数
 
 | 参数名称    | 类型     | 描述                  |
 | ------- | ------ | ------------------- |
-| code    | Int    | 错误码, 0: 成功, 其他值表示失败 |
-| message | String | 返回信息                |
-| data    | Array  | 结果数据                |
+| Tasks    | CatTask数组    | 拨测任务列表 |
 
-### 3.1 data 的结构
 
-| 参数名称  | 类型    | 描述          |
-| ----- | ----- | ----------- |
-| total | Int   | 当前用户总的拨测任务数 |
-| tasks | Array | 本批拨测任务列表    |
-
-#### 3.1.1 拨测任务  的结构  
-
-| 参数名称               | 类型     | 描述                               |
-| ------------------ | ------ | -------------------------------- |
-| taskId             | Int    | 任务id                             |
-| taskName           | String | 任务名称                             |
-| period             | Int    | 任务周期                             |
-| catTypeName        | String | 拨测类型                             |
-| status             | Int    | 任务状态  1 暂停, 2 激活                 |
-| cgiUrl             | String | 拨测地址                             |
-| addTime            | String | 任务创建的时间  格式如：2017-05-16 10:00:00 |
-| availRatioThres    | Int    | 告警的可用率门限                         |
-| availRatioInterval | Int    | 告警的可用率持续时间                       |
-| receiverGroupId    | Int    | 告警接收组                            |
-
-##### 
-
-## 4. 错误码表
-
-| 错误代码  | 错误描述                                | 英文描述                          |
-| ----- | ----------------------------------- | ----------------------------- |
-| 10001 | 输入参数错误。可能是达到最大拨测分组数限制。结合message一起看。 | InvalidParameter              |
-| 11000 | DB操作失败                              | InternalError.DBoperationFail |
-
-## 5. 示例
+## 4. 示例
 
 输入
 
 ```
-https://catapi.api.qcloud.com/v2/index.php?
-& <<a href="https://cloud.tencent.com/doc/api/229/6976">公共请求参数</a>>
-&Action=DescribeCatTask
-&taskId.0=24418
-&taskId.1=24420
+https://cat.tencentcloudapi.com/?Action=DescribeTask
+&TaskIds.1=24418
+&TaskIds.2=24420
+&<公共请求参数>
 ```
 
 输出
 
 ```
 {
-    "code": 0,
-    "message": "",
-    "codeDesc": "Success",
-    "data": {
-        "tasks": [
+	"Response": 
+        {	
+            "Tasks": [
             {
-                "taskId": 24418,
-                "appId": 1251342139,
-                "taskName": "keke_test_pop3",
-                "cgiUrl": "pop.qq.com",
-                "catTypeName": "pop3",
-                "status": 2,
-                "period": 5,
-                "availRatioThres": 90,
-                "availRatioInterval": 15,
-                "receiverGroupId": 9063,
-                "addTime": "2017-05-10 17:29:15",
-                "updateTime": "2017-05-11 15:44:20"
+                "TaskId": 24418,
+                "AppId": 1251342139,
+                "TaskName": "keke_test_pop3",
+                "CgiUrl": "pop.qq.com",
+                "CatTypeName": "pop3",
+                "Status": 2,
+                "Period": 5,
+                "AvailRatioThres": 90,
+                "AvailRatioInterval": 15,
+                "ReceiverGroupId": 9063,
+                "AddTime": "2017-05-10 17:29:15",
+                "UpdateTime": "2017-05-11 15:44:20",
+                "AgentGroupId": 1050
             },
             {
-                "taskId": 24420,
-                "appId": 1251342139,
-                "taskName": "test_ftp_keke2",
-                "cgiUrl": "115.159.142.79",
-                "catTypeName": "ftp",
-                "status": 2,
-                "period": 5,
-                "availRatioThres": null,
-                "availRatioInterval": null,
-                "receiverGroupId": null,
-                "addTime": "2017-05-11 14:38:38",
-                "updateTime": "2017-05-19 15:15:59"
+                "TaskId": 24420,
+                "AppId": 1251342139,
+                "TaskName": "test_ftp_keke2",
+                "CgiUrl": "115.159.142.79",
+                "CatTypeName": "ftp",
+                "Status": 2,
+                "Period": 5,
+                "AvailRatioThres": null,
+                "AvailRatioInterval": null,
+                "ReceiverGroupId": null,
+                "AddTime": "2017-05-11 14:38:38",
+                "UpdateTime": "2017-05-19 15:15:59",
+                "AgentGroupId": 1051
             }
-        ]
-    }
+            ],
+            "RequestID": "6de91190-a148-97a4-a935-f44cf51e1d61"
+	}	
 }
 ```
