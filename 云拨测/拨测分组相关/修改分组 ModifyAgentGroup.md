@@ -1,7 +1,7 @@
 ## 1. 接口描述
 
 域名：catapi.api.qcloud.com
-接口：UpdateCatAgentGroup
+接口：ModifyAgentGroup
 
 
 
@@ -14,13 +14,12 @@ groupId=10000888&groupName=test_group2&isDefault=0&agent.0.province=gd&agent.0.i
 
 ### 2.1输入参数
 
-| 参数名称             | 必选   | 类型     | 输入内容   | 描述                                       |
-| ---------------- | ---- | ------ | ------ | ---------------------------------------- |
-| groupId          | 是    | Int    | 拨测分组id | 拨测分组id                                   |
-| groupName        | 是    | String | 拨测分组名  | 拨测分组名称，最长32字节                            |
-| isDefault        | 是    | Int    | 0/1    | 是否为默认分组。取值范围 0 或者 1                      |
-| agent.0.province | 是    | String | 省份     | 省份。最大取值范围，参见下表1 中的province 列             |
-| agent.0.isp      | 是    | String | 运营商    | 运营商。最大取值范围，参见下表2 中的isp 列。province, isp 需要成对地进行选择。参数对的取值范围。参见：DescribeAgentList 的返回结果中的provice, isp组合。 |
+| 参数名称             | 必选   | 类型      | 描述                                       |
+| ---------------- | ---- | ------ |  ---------------------------------------- |
+| GroupId          | 是    | UInt64    |  拨测分组id                                   |
+| GroupName        | 是    | String |  拨测分组名称，最长32字节                            |
+| IsDefault        | 是    | UInt64    | 是否为默认分组。取值范围 0 或者 1                      |
+| Agents | 是    | CatAgent数组 | 省份     | Province, Isp 需要成对地进行选择。参数对的取值范围。参见：DescribeAgents 的返回结果。            |
 #### 
 
 ## 3. 输出参数
@@ -43,16 +42,15 @@ groupId=10000888&groupName=test_group2&isDefault=0&agent.0.province=gd&agent.0.i
 输入
 
 ```
-https://catapi.api.qcloud.com/v2/index.php?
-& <<a href="https://cloud.tencent.com/doc/api/229/6976">公共请求参数</a>>
-&Action=UpdateCatAgentGroup
-&groupId=10000888
-&groupName=test_group2
-&isDefault=0
-&agent.0.province=gd
-&agent.0.isp=cmc
-&agent.1.province=gd
-&agent.1.isp=cuc
+https://cat.tencentcloudapi.com/?Action=ModifyAgentGroup
+&GroupId=28330
+&GroupName=test_group2
+&IsDefault=0
+&Agents.0.Province=gd
+&Agents.0.Isp=cmc
+&Agents.1.Province=tj
+&Agents.1.Isp=cuc
+&<公共请求参数>
 ```
 
 输出

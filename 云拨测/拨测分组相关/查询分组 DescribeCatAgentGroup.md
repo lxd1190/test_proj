@@ -1,7 +1,7 @@
 ## 1. 接口描述
 
 域名：catapi.api.qcloud.com
-接口：DescribeCatAgentGroup
+接口：DescribeAgentGroup
 
 
 
@@ -14,54 +14,30 @@ groupId=10000888
 
 ### 2.1输入参数
 
-| 参数名称    | 必选   | 类型   | 输入内容   | 描述     |
-| ------- | ---- | ---- | ------ | ------ |
-| groupId | 是    | Int  | 拨测分组id | 拨测分组id |
+| 参数名称    | 必选   | 类型      | 描述     |
+| ------- | ---- | ---- | ------ |
+| GroupId | 是    | UInt64  | 拨测分组id |
 #### 
 
 ## 3. 输出参数
 
 | 参数名称    | 类型     | 描述                  |
 | ------- | ------ | ------------------- |
-| code    | Int    | 错误码, 0: 成功, 其他值表示失败 |
-| message | String | 返回信息                |
-| data    | Array  | 结果数据                |
+| GroupId    | UInt64    | 拨测分组Id |
+| GroupName | String | 拨测分组名称               |
+| IsDefault    | UInt64  | 是否为默认拨测分组              |
+| TaskNum    | UInt64  | 使用本拨测分组的任务数              |
+| Agents    | CatAgent数组  | 拨测分组运营商列表              |
 
-### 3.1 data 元素的结构
 
-| 参数名称      | 类型     | 描述        |
-| --------- | ------ | --------- |
-| groupId   | Int    | 拨测分组id    |
-| name      | String | 拨测分组名称    |
-| isDefault | Int    | 是否缺省      |
-| taskNum   | Int    | 采用本分组的任务数 |
-| agent     | Array  | Agent列表   |
-
-#### 3.1.1 agent 元素的结构  
-
-| 参数名称         | 类型     | 描述    |
-| ------------ | ------ | ----- |
-| province     | String | 省份    |
-| provinceName | String | 省份名称  |
-| isp          | String | 运营商   |
-| ispName      | String | 运营商名称 |
-
-## 4. 错误码表
-
-| 错误代码  | 错误描述                                | 英文描述                          |
-| ----- | ----------------------------------- | ----------------------------- |
-| 10001 | 输入参数错误。可能是达到最大拨测分组数限制。结合message一起看。 | InvalidParameter              |
-| 11000 | DB操作失败                              | InternalError.DBoperationFail |
-
-## 5. 示例
+## 4. 示例
 
 输入
 
 ```
-https://catapi.api.qcloud.com/v2/index.php?
-& <<a href="https://cloud.tencent.com/doc/api/229/6976">公共请求参数</a>>
-&Action=DescribeCatAgentGroup
-&groupId=10000888
+https://cat.tencentcloudapi.com/?Action=DescribeAlarmGroups
+&GroupId=10000888
+&<公共请求参数>
 
 ```
 
@@ -69,27 +45,26 @@ https://catapi.api.qcloud.com/v2/index.php?
 
 ```
 {
-    "code": 0,
-    "message": "",
-    "codeDesc": "Success",
-    "data": {
-        "groupName": "test_group",
-        "groupDesc": "",
-        "isDefault": 0,
-        "agent": [
-            {
-                "province": "gd",
-                "provinceName": "广东",
-                "isp": "ctc",
-                "ispName": "电信"
-            },
-            {
-                "province": "gd",
-                "provinceName": "广东",
-                "isp": "cuc",
-                "ispName": "联通"
-            }            
-        ]
-    }
+	"Response": 
+        {	
+            "GroupName": "test_group",
+            "GroupDesc": "",
+            "IsDefault": 0,
+            "Agents": [
+                {
+                    "Province": "gd",
+                    "ProvinceName": "广东",
+                    "Isp": "ctc",
+                    "IspName": "电信"
+                },
+                {
+                    "Province": "gd",
+                    "ProvinceName": "广东",
+                    "Isp": "cuc",
+                    "IspName": "联通"
+                }            
+            ],
+            "RequestID": "6de91190-a148-97a4-a935-f44cf51e1d61"
+	}	
 }
 ```
