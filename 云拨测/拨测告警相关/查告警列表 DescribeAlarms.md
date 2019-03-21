@@ -33,7 +33,7 @@
 | 参数名称    | 类型     | 描述                  |
 | ------- | ------ | ------------------- |
 | TotalCount    | UInt64    | 告警总条数 |
-| AlarmInfos | AlarmInfo数组 | 本批告警信息列表                |
+| AlarmInfos | Array | 本批告警信息列表                |
 
 
 ## 4. 示例
