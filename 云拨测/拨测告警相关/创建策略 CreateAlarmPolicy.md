@@ -2,12 +2,12 @@
 
 域名：
 
-接口：CreateAlarmPloicy
+接口：CreateAlarmPolicy
 
 
 ## 2. 输入参数
 
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为CreateAlarmPloicy。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为CreateAlarmPolicy。
 
 ### 2.1输入参数
 
