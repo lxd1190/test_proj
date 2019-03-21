@@ -28,14 +28,6 @@
 | AlarmGroupInfos | AlarmGroupInfo | 满足条件的告警接收组列表                |
 
 
-### 3.1 data 的结构
-
-| 参数名称           | 类型    | 描述       |
-| -------------- | ----- | -------- |
-| total          | Int   | 总共的接收组数目 |
-| alarmGroupInfo | Array | 告警接收组列表  |
-
-
 ## 4. 示例
 
 输入
