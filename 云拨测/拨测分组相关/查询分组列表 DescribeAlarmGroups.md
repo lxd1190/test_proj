@@ -23,7 +23,7 @@
 | 参数名称    | 类型     | 描述                  |
 | ------- | ------ | ------------------- |
 | SysDefaultGroup    | AgentGroup    | 用户所属的系统默认拨测分组 |
-| CustomGroups | AgentGroup数组 | 用户创建的拨测分组列表          |
+| CustomGroups | Array | 用户创建的拨测分组列表          |
 
 ## 4. 示例
 
