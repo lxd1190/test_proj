@@ -31,7 +31,7 @@
 输入
 
 ```
-https://cat.tencentcloudapi.com/?Action=UpdateAlarmPolicy
+https://cat.tencentcloudapi.com/?Action=ModifyAlarmPloicy
 &TaskId=24418
 &PolicyId=28330
 &Interval=1
