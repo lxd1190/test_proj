@@ -5,10 +5,6 @@
 接口：ModifyAgentGroup
 
 
-
-修改拨测分组，入参取值示例如下：
-groupId=10000888&groupName=test_group2&isDefault=0&agent.0.province=gd&agent.0.isp=cmc&agent.1.province=gd&agent.1.isp=cuc
-
 ## 2. 输入参数
 
 以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为UpdateCatAgentGroup。
