@@ -15,7 +15,7 @@
 | ---------------- | ---- | ------ | ---------------------------------------- |
 | GroupName        | 是    | String | 拨测分组名称                           |
 | IsDefault        | 是    | UInt64    | 是否为默认分组                  |
-| Agents| 是    | CatAgent数组 | Province, Isp 需要成对地进行选择。参数对的取值范围。参见：DescribeAgentList 的返回结果。           |
+| Agents| 是    | Array | Province, Isp 需要成对地进行选择。参数对的取值范围。参见：DescribeAgentList 的返回结果。           |
 
 #### 
 
