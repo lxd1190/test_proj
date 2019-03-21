@@ -10,7 +10,7 @@
 
 ## 2. 输入参数
 
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为DescirbeCatAlarmList。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为DescribeAlarms。
 
 ### 2.1输入参数
 
@@ -19,11 +19,11 @@
 | Offset    | 否    | UInt64 | 从第Offset 条开始查询。缺省值为0      |
 | Limit     | 否    | UInt64 | 本批次查询Limit 条记录。缺省值为20        |
 | Status    | 否    | UInt64    | 0 全部, 1 已恢复, 2 未恢复  默认为0。其他值，视为0 查全部状态。                    |
-| BeginTime | 否    | DateTime    | 每页多少条   | 格式如：2017-05-09 00:00:00  缺省为7天前0点                   |
-| EndTime   | 否    | DateTime    | 告警状态    | 格式如：2017-05-10 00:00:00  缺省为明天0点 |
-| ObjName   | 否    | String    | 告警状态    |告警任务名（模糊匹配） |
-| SortBy    | 否    | String    | 告警状态    | 排序字段，可为Time, ObjName, Duration, Status, Content 之一。缺省为Time。 |
-| SortType  | 否    | String   | 告警状态    | 升序或降序。可为Desc, Asc之一。缺省为Desc。 |
+| BeginTime | 否    | DateTime    |  格式如：2017-05-09 00:00:00  缺省为7天前0点                   |
+| EndTime   | 否    | DateTime    | 格式如：2017-05-10 00:00:00  缺省为明天0点 |
+| ObjName   | 否    | String    | 告警任务名（模糊匹配） |
+| SortBy    | 否    | String    |排序字段，可为Time, ObjName, Duration, Status, Content 之一。缺省为Time。 |
+| SortType  | 否    | String   | 升序或降序。可为Desc, Asc之一。缺省为Desc。 |
 
 
 #### 
