@@ -29,7 +29,7 @@
 | Details    | Array    | 错误码, 0: 成功, 其他值表示失败 |
 | Summarys | Array | 返回信息                |
 | BeginTime    | DateTime  | 结果数据                |
-| EndTime    | Array  | 结果数据                |
+| EndTime    | DateTime  | 结果数据                |
 
 ## 4. 示例
 
