@@ -1,6 +1,7 @@
 ## 1. 接口描述
 
 域名：
+
 接口：DescribeAgentGroups
 
 
@@ -9,7 +10,7 @@
 
 ## 2. 输入参数
 
-以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为DescribeCatAgentGroupList。
+以下请求参数列表仅列出了接口请求参数，正式调用时需要加上公共请求参数，见<a href="/doc/api/405/公共请求参数" title="公共请求参数">公共请求参数</a>页面。其中，此接口的Action字段为DescribeAgentGroups。
 
 ### 2.1输入参数
 
