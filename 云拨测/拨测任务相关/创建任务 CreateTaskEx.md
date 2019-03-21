@@ -23,7 +23,7 @@
 | Url          | 是    | String | 拨测的url  例如：www.baidu.com (url域名解析需要能解析出具体的ip)               |
 | Host         | 否    | String | 指定域名(如需要)   |
 | IsHeader     | 否    | UInt64 | 是否为Header请求（非0 发起Header 请求。为0，且PostData 非空，发起POST请求。为0，PostData 为空，发起GET请求）                           |
-| SslVer       | 否    | Int    | url中含有https时有用。缺省为SSLv23。需要为 TLSv1_2, TLSv1_1, TLSv1, SSLv2, SSLv23, SSLv3 之一 |
+| SslVer       | 否    | String    | url中含有https时有用。缺省为SSLv23。需要为 TLSv1_2, TLSv1_1, TLSv1, SSLv2, SSLv23, SSLv3 之一 |
 | PostData     | 否    | String | POST 请求数据。空字符串表示非POST请求               |
 | UserAgent    | 否    | String | 用户agent 信息  |
 | CheckStr     | 否    | String | 要在结果中进行匹配的字符串   |
