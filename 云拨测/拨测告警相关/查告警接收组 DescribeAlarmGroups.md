@@ -33,36 +33,36 @@
 输入
 
 ```
-https://catapi.api.qcloud.com/v2/index.php?
-& <<a href="https://cloud.tencent.com/doc/api/229/6976">公共请求参数</a>>
-&Action=DescribeAlarmGroups
-&page=1
-&num=2
+https://cat.tencentcloudapi.com/?Action=DescribeAlarmGroups
+&Offset=0
+&Limit=2
+&<公共请求参数>
 ```
 
 输出
 
 ```
 {
-    "code": 0,
-    "message": "",
-    "codeDesc": "Success",
-    "total": 2,
-    "alarmGroupInfo": [
-        {
-            "groupId": 9063,
-            "groupName": "消息分组1",
-            "channel": 3,
-            "remark": null,
-            "createTime": "2016-01-05 14:41:18"
-        },
-        {
-            "groupId": 16310,
-            "groupName": "aaa",
-            "channel": 3,
-            "remark": "bbb",
-            "createTime": "2016-11-01 16:42:40"
-        }
-    ]
+	"Response": 
+        {	
+              "TotalCount": 5,
+             "AlarmGroupInfos": [
+             {
+                "GroupId": 9063,
+                "GroupName": "消息分组1",
+                "Channel": 3,
+                "Remark": null,
+                "CreateTime": "2016-01-05 14:41:18"
+             },
+             {
+                "GroupId": 16310,
+                "GroupName": "aaa",
+                "Channel": 3,
+                "Remark": "bbb",
+                "CreateTime": "2016-11-01 16:42:40"
+              }
+              ],
+              "RequestID": "6de91190-a148-97a4-a935-f44cf51e1d61"
+	}	
 }
 ```
