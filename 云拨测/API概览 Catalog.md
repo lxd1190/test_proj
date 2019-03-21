@@ -9,9 +9,9 @@
 | 接口功能 | 接口名称                | 功能描述          |
 | ---- | ------------------- | ------------- |
 | 创建任务 | CreateTaskEx       | 创建  拨测任务    |
-| 删除任务 | DeleteCatTask       | 删除拨测任务        |
+| 删除任务 | DeleteTasks       | 删除拨测任务        |
 | 查询任务 | DescribeTasks       | 查询拨测任务列表      |
-| 查询详情 | DescribeCatTask     | 查询拨测任务详情      |
+| 查询详情 | DescribeTask     | 查询拨测任务详情      |
 
 
 
@@ -19,8 +19,8 @@
 
 | 接口功能   | 接口名称                   | 功能描述         |
 | ------ | ---------------------- | ------------ |
-| 创建策略   | CreateCatAlarmPloicy   | 为拨测任务创建告警策略  |
-| 修改策略   | UpdateCatAlarmPloicy   | 为拨测任务修改告警策略  |
+| 创建策略   | CreateAlarmPolicy   | 为拨测任务创建告警策略  |
+| 修改策略   | ModifyAlarmPolicy   | 为拨测任务修改告警策略  |
 | 查告警接收组 | DescribeAlarmGroups | 查询用户的告警接收组列表 |
 | 查告警列表  | DescribeAlarms   | 查询拨测告警列表     |
 
@@ -30,12 +30,11 @@
 
 | 接口功能   | 接口名称                      | 功能描述          |
 | ------ | ------------------------- | ------------- |
-| 添加分组   | CreateCatAgentGroup       | 添加拨测分组        |
-| 修改分组   | UpdateCatAgentGroup       | 修改拨测分组        |
-| 删除分组   | DeleteCatAgentGroup       | 删除拨测分组        |
-| 查询分组   | DescribeCatAgentGroup     | 查询拨测分组详情      |
-| 查询拨测点  | DescribeAgentList         | 查询本用户可选的拨测点列表 |
-| 查询分组列表 | DescribeCatAgentGroupList | 查询拨测分组列表      |
+| 添加分组   | CreateAgentGroup       | 添加拨测分组        |
+| 修改分组   | ModifyAgentGroup       | 修改拨测分组        |
+| 删除分组   | DeleteAgentGroup       | 删除拨测分组        |
+| 查询分组   | DescribeAgentGroup     | 查询拨测分组详情      |
+| 查询分组列表 | DescribeAlarmGroups | 查询拨测分组列表      |
 
 
 
@@ -43,7 +42,6 @@
 
 | 接口功能   | 接口名称                    | 功能描述           |
 | ------ | ----------------------- | -------------- |
-| 查询统计数据 | GetCatRespTimeTrend     | 查询拨测任务的统计数据    |
 | 查询返回码  | GetCatReturnCodeHistory | 查询拨测任务的历史返回码信息 |
 
 
