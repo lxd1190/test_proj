@@ -16,15 +16,12 @@
 | GroupId          | 是    | UInt64    |  拨测分组id                                   |
 | GroupName        | 是    | String |  拨测分组名称，最长32字节                            |
 | IsDefault        | 是    | UInt64    | 是否为默认分组。取值范围 0 或者 1                      |
-| Agents | 是    | CatAgent数组 | 省份     | Province, Isp 需要成对地进行选择。参数对的取值范围。参见：DescribeAgents 的返回结果。            |
+| Agents | 是    | Array | Province, Isp 需要成对地进行选择。参数对的取值范围。参见：DescribeAgents 的返回结果。            |
 #### 
 
 ## 3. 输出参数
 
-| 参数名称    | 类型     | 描述                  |
-| ------- | ------ | ------------------- |
-| code    | Int    | 错误码, 0: 成功, 其他值表示失败 |
-| message | String | 返回信息                |
+无
 
 
 ## 5. 示例
@@ -47,7 +44,9 @@ https://cat.tencentcloudapi.com/?Action=ModifyAgentGroup
 
 ```
 {
-	"code": 0,
-	"message": ""
+	"Response": 
+        {	
+               "RequestID": "6de91190-a148-97a4-a935-f44cf51e1d61"
+	}	
 }
 ```
