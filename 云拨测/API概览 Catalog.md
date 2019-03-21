@@ -1,6 +1,6 @@
 ####API 概览
 
-最近更新时间: 2017-06-02 14:51:00
+最近更新时间: 2019-03-02 14:51:00
 
 
 
@@ -8,13 +8,9 @@
 
 | 接口功能 | 接口名称                | 功能描述          |
 | ---- | ------------------- | ------------- |
-| 验证任务 | SimpleVerifyCatTask | 验证拨测任务，发起请求   |
-| 验证结果 | VerifyCatResult     | 验证拨测任务，结果验证查询 |
-| 创建任务 | CreateCatTask       | 创建或修改 拨测任务    |
-| 运行任务 | RunCatTask          | 运行拨测任务        |
-| 暂停任务 | PauseCatTask        | 暂停拨测任务        |
+| 创建任务 | CreateTaskEx       | 创建  拨测任务    |
 | 删除任务 | DeleteCatTask       | 删除拨测任务        |
-| 查询任务 | DescribeCatTaskList | 查询拨测任务列表      |
+| 查询任务 | DescribeTasks       | 查询拨测任务列表      |
 | 查询详情 | DescribeCatTask     | 查询拨测任务详情      |
 
 
@@ -25,8 +21,8 @@
 | ------ | ---------------------- | ------------ |
 | 创建策略   | CreateCatAlarmPloicy   | 为拨测任务创建告警策略  |
 | 修改策略   | UpdateCatAlarmPloicy   | 为拨测任务修改告警策略  |
-| 查告警接收组 | DescribeAlarmGroupList | 查询用户的告警接收组列表 |
-| 查告警列表  | DescirbeCatAlarmList   | 查询拨测告警列表     |
+| 查告警接收组 | DescribeAlarmGroups | 查询用户的告警接收组列表 |
+| 查告警列表  | DescribeAlarms   | 查询拨测告警列表     |
 
 
 

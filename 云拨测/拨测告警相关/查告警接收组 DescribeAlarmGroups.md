@@ -1,7 +1,8 @@
 ## 1. 接口描述
 
-域名：catapi.api.qcloud.com
-接口：DescribeAlarmGroupList
+域名：
+
+接口：DescribeAlarmGroups
 
 
 
@@ -13,19 +14,19 @@
 
 ### 2.1输入参数
 
-| 参数名称 | 必选   | 类型   | 输入内容  | 描述    |
-| ---- | ---- | ---- | ----- | ----- |
-| page | 否    | Int  | 第几页   | 从1开始。 |
-| num  | 否    | Int  | 每页多少条 | 缺省为20 |
+| 参数名称 | 必选   | 类型   | 描述    |
+| ---- | ---- | ---- |  ----- |
+| Offset | 否    | UInt64  | 满足条件的第几条开始 |
+| Limit  | 否    | UInt64  | 每批多少条 |
 #### 
 
 ## 3. 输出参数
 
 | 参数名称    | 类型     | 描述                  |
 | ------- | ------ | ------------------- |
-| code    | Int    | 错误码, 0: 成功, 其他值表示失败 |
-| message | String | 返回信息                |
-| data    | Array  | 结果数据                |
+| TotalCount    | UInt64    | 用户名下总的告警接收组数目 |
+| AlarmGroupInfos | AlarmGroupInfo | 满足条件的告警接收组列表                |
+
 
 ### 3.1 data 的结构
 

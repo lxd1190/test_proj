@@ -1,7 +1,7 @@
 ## 1. 接口描述
 
 域名：
-接口：DeleteCatTask
+接口：DeleteTasks
 
 
 
