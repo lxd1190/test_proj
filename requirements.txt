@@ -72,7 +72,7 @@ ipython-genutils==0.1.0
 ipython4==4.1.2
 ipywidgets==5.1.5
 jigna==0.9.9
-Jinja2==2.8
+Jinja2==2.11.3
 jsonpickle==0.4.0
 jsonschema==2.4.0
 jupyter==1.0.0
