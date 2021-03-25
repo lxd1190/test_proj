@@ -140,7 +140,7 @@ pyparsing==2.0.3
 PySide==1.2.2
 python-dateutil==2.5.2
 pytz==2016.3
-PyYAML==3.11
+PyYAML==5.4
 pyzmq==15.2.0
 Qt==4.8.7
 qtconsole==4.2.1
