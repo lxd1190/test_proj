@@ -176,7 +176,7 @@ traits-enaml==0.2.1
 traitsui==5.1.0
 tsfresh==0.11.0
 tzlocal==1.2
-urllib3==1.23
+urllib3==1.26.5
 Werkzeug==0.14.1
 wxPython==3.0.2.0
 xgboost==0.71
