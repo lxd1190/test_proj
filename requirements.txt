@@ -61,7 +61,7 @@ gst-plugins-base==0.10.36
 gstreamer==0.10.36
 hatcher==0.10.1
 HeapDict==1.0.0
-html5lib==0.9999999
+html5lib==0.999999999
 humanize==0.5.1
 idle==2.7.3
 idna==2.7
