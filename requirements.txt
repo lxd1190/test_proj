@@ -30,7 +30,7 @@ cycler==0.10.0
 dask==0.15.2
 decorator==4.0.9
 distribute-remove==1.0.0
-distributed==1.18.3
+distributed==2021.10.0
 Django==1.11.13
 docutils==0.12
 ecdsa==0.13
