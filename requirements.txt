@@ -100,7 +100,7 @@ matplotlib==1.5.1
 mccabe==0.3.1
 meld3==1.0.2
 memory-profiler==0.41
-mistune==0.7.1
+mistune==2.0.3
 MKL==11.1.4
 mkl-service==1.0
 mock==2.0.0
